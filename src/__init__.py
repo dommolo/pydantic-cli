@@ -1,1 +1,1 @@
-from .pydic import run
+from .pydantic_cli import run

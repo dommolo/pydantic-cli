@@ -3,15 +3,17 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pydic"
+name = "pydantic-cli"
 version = "0.1.0"
 description = "Interactive configuration prompt for Pydantic models"
+readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.7"
 dependencies = [
     "pydantic>=1.0,<2.0",
 ]
 authors = [
-    {name = "Your Name", email = "your.email@example.com"},
+    {name = "Dom", email = "dom1984@gmail.com"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -25,12 +27,12 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/pydic"
-Repository = "https://github.com/yourusername/pydic"
+Homepage = "https://github.com/dommolo/pydantic-cli"
+Repository = "https://github.com/dommolo/pydantic-cli"
 
 [tool.setuptools]
-packages = ["pydic"]
+packages = ["pydantic_cli"]
 
 [tool.setuptools.package-dir]
-pydic = "src"
+pydantic_cli = "src"
 

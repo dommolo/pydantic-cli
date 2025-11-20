@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from pydic import run
+from pydantic_cli import run
 
 class ExampleSubConfig(BaseModel):
     name: str
@@ -13,4 +13,5 @@ class ExampleConfig(BaseModel):
     is_student: bool = True
     teacher: ExampleSubConfig = None
 
-run(ExampleConfig)
+config = run(ExampleConfig)
+print(config)

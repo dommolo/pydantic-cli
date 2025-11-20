@@ -2,4 +2,7 @@ venv
 __pycache__
 .vscode
 dist
+build
 *.egg-info
+.pypirc
+PUBLISH.md
