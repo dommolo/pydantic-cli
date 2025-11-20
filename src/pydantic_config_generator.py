@@ -20,13 +20,16 @@ def prompt_value(item, default: Any, group: str = '') -> Any:
         return vv
 
 
-def prompt_config(config: BaseModel, group: str = '.') -> BaseModel:
+def prompt_config(config: BaseModel, group: str = None) -> BaseModel:
     output = {}
+
+    if group is None:
+        group = config.__name__ + '.'
 
     for k, v in config.__fields__.items():
         if issubclass(v.type_, BaseModel):
             if not v.required:
-                s = input(f'{v.name} is optional. Skip? (y/n) [n]: ')
+                s = input(f'{group}{v.name} is optional. Skip? (y/n) [n]: ')
                 if s == 'y':
                     continue
 
@@ -37,7 +40,7 @@ def prompt_config(config: BaseModel, group: str = '.') -> BaseModel:
     return output
 
 
-def run(config_class: BaseModel):
+def run(config_class: BaseModel, output_form: str = 'json'):
     while True:
         try:
             data = prompt_config(config_class)

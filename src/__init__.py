@@ -1,1 +1,1 @@
-from .pydantic_cli import run
+from .pydantic_config_generator import run
