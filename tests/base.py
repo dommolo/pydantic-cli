@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from typing import Optional
 from pydantic_config_generator import prompt, write_ini, write_env
 
 
 class ExampleSubConfig(BaseModel):
-    name: str
+    name: str = None
     surname: str
     age: int
 
@@ -11,12 +12,18 @@ class ExampleSubConfig(BaseModel):
 class ExampleConfig(BaseModel):
     name: str = ''
     surname: str
+    alias: Optional[str]
+    height: int = None
     age: int
     is_student: bool = True
-    teacher: ExampleSubConfig = None
+    favorite_teacher: ExampleSubConfig = None
+
+class ExampleSuperConfig(BaseModel):
+    student: ExampleConfig
+    teacher: ExampleSubConfig
 
 
-config = prompt(ExampleConfig)
+config = prompt(ExampleSubConfig)
 print(config)
 
 write_ini(config)

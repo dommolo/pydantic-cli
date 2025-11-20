@@ -31,7 +31,8 @@ class ExampleConfig(BaseModel):
     is_student: bool = True
 
 # Avvia il prompt interattivo
-config = prompt(ExampleConfig)
+# prompt() restituisce un dizionario con i valori inseriti
+config_data = prompt(ExampleConfig)
 ```
 
 ### Esempio con Modelli Annidati
@@ -52,10 +53,11 @@ class ExampleConfig(BaseModel):
     is_student: bool = True
     teacher: ExampleSubConfig = None
 
-config = prompt(ExampleConfig)
+# prompt() restituisce un dizionario
+config_data = prompt(ExampleConfig)
 ```
 
-Il sistema ti chiederà di inserire i valori per ogni campo, mostrando i valori di default tra parentesi quadre. I campi obbligatori devono essere compilati, mentre quelli opzionali possono essere saltati.
+Il sistema ti chiederà di inserire i valori per ogni campo, mostrando i valori di default tra parentesi quadre. I campi obbligatori devono essere compilati, mentre quelli opzionali possono essere saltati. Se lasci un campo vuoto e ha un valore di default, verrà utilizzato il valore di default. La funzione `prompt()` restituisce un dizionario Python con i dati inseriti.
 
 ### Salvare la Configurazione in un File
 
@@ -73,12 +75,15 @@ class ExampleConfig(BaseModel):
     age: int
     is_student: bool = True
 
-# Raccogli la configurazione
-config = prompt(ExampleConfig)
+# Raccogli la configurazione (restituisce un dizionario)
+config_data = prompt(ExampleConfig)
 
 # Salva in un file INI
-write_ini(config, 'config.ini')
+# write_ini() accetta un dizionario, non un'istanza BaseModel
+write_ini(config_data, 'config.ini')
 ```
+
+La funzione `write_ini()` crea un file INI dove ogni chiave del dizionario diventa una sezione. I modelli annidati vengono salvati come sezioni separate.
 
 #### Salvataggio in formato .env
 
@@ -92,11 +97,12 @@ class ExampleConfig(BaseModel):
     age: int
     is_student: bool = True
 
-# Raccogli la configurazione
-config = prompt(ExampleConfig)
+# Raccogli la configurazione (restituisce un dizionario)
+config_data = prompt(ExampleConfig)
 
 # Salva in un file .env
-write_env(config, '.env', group_separator='_', use_uppercase=True)
+# write_env() accetta un dizionario, non un'istanza BaseModel
+write_env(config_data, '.env', group_separator='_', use_uppercase=True)
 ```
 
 La funzione `write_env()` supporta i seguenti parametri:
@@ -134,8 +140,9 @@ Se il file esiste già, ti verrà chiesta conferma prima di sovrascriverlo.
 3. **Modelli annidati**: Se un campo è un modello Pydantic, pydantic-config-generator chiede se includerlo (se opzionale) e poi richiede i suoi campi
 4. **Gestione errori**: Se un valore non è valido, viene mostrato un errore e viene richiesto di nuovo
 5. **Salvataggio in file**: 
-   - `write_ini()` salva la configurazione in formato INI, dove la configurazione viene salvata nella sezione `[default]`
-   - `write_env()` salva la configurazione in formato .env, con supporto per modelli annidati tramite separatori personalizzabili
+   - `prompt()` restituisce un dizionario Python con i dati inseriti
+   - `write_ini()` accetta un dizionario e salva la configurazione in formato INI, dove ogni chiave del dizionario diventa una sezione
+   - `write_env()` accetta un dizionario e salva la configurazione in formato .env, con supporto per modelli annidati tramite separatori personalizzabili
    - `create_ini()` e `create_env()` combinano prompt e salvataggio in un'unica operazione
 
 ## Requisiti
