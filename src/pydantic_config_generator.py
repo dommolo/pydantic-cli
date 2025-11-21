@@ -17,7 +17,7 @@ def prompt_value(item, group: str = '') -> Any:
         if v == '' and item.allow_none:
             return None
 
-        if v == '' and item.default:
+        if v == '' and item.default is not None:
             return item.default
 
         vv, verr = item.validate(v, {}, loc=item.name)
@@ -49,8 +49,6 @@ def prompt_config(config: BaseModel, group: str = None) -> BaseModel:
 
             if value != field.default:
                 output[key] = value
-            else:
-                print('Using default value.')
 
     return output
 
