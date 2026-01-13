@@ -145,10 +145,10 @@ def write_env(data: dict, file: str = '.env', group_separator: str = '.', use_up
     print(f'File {file} created successfully.')
 
 
-def create_ini(config: BaseModel, file: str = 'config.ini', environ_mode: str = ENVIRON_MODE_IGNORE):
+def create_ini(config: BaseModel, file: str = 'config.ini', environ_mode: str = ENVIRON_MODE_IGNORE, default_mode: str = DEFAULT_MODE_ASK):
     check_file(file)
 
-    data = prompt(config, environ_mode)
+    data = prompt(config, environ_mode, default_mode)
     write_ini(data, file)
 
 
